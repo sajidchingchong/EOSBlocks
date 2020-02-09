@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:EOSBlocks.xcodeproj">
+      location = "group:/Users/profile1/Documents/EOSBlocks/EOSBlocks/Models">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

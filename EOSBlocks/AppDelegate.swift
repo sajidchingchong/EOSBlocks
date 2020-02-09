@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  EOSBlocks
 //
-//  Created by Profile1 on 8/2/20.
-//  Copyright © 2020 Profile1. All rights reserved.
+//  Created by Sajid Hussain on 8/2/20.
+//  Copyright © 2020 Sajid Hussain. All rights reserved.
 //
 
 import UIKit
