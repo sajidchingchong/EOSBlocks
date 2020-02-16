@@ -10,16 +10,20 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
+    static let TOTAL_BLOCKS: Int = 20
+    
     let loadingCellIdentifier = "loadingCell"
     let blockCellIdentifier = "blockCell"
     
     var detailViewController: DetailViewController? = nil
     
-    var objects = [Block]()
+    var blocks = [Int]()
+    var head: Int = -1
+    var tail: Int = -1
     
-    let blockUrl = "https://api.eosnewyork.io/v1"
+    let infoUrl = "https://api.eosnewyork.io/v1/get_info"
     var url : URL {
-        return URL(string: "\(blockUrl)")!
+        return URL(string: "\(infoUrl)")!
     }
     
     override func viewDidLoad() {
@@ -50,9 +54,9 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row]
+                let block = blocks[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.item = object
+                controller.item = block
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -66,7 +70,7 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return MasterViewController.TOTAL_BLOCKS
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -74,10 +78,10 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let object = objects[indexPath.row]
+        let block = blocks[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: blockCellIdentifier, for: indexPath) as! BlockTableViewCell
-        cell.configureCell(with: object)
+        cell.configureCell(with: block)
         
         return cell
     }
@@ -89,7 +93,7 @@ class MasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            objects.remove(at: indexPath.row)
+            blocks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -97,7 +101,6 @@ class MasterViewController: UITableViewController {
     }
     
     @objc func reloadBlocks() {
-        objects.removeAll()
         loadRecentBlockBatch()
         refreshControl?.endRefreshing()
     }
@@ -110,17 +113,32 @@ class MasterViewController: UITableViewController {
                 return
             }
             
-            print("Discovery Response: " + String(decoding: data, as: UTF8.self))
+            print("Info Response: " + String(decoding: data, as: UTF8.self))
             
-            guard let discoverResponse = try? JSONDecoder().decode(BlockResponse.self, from: data) else {
-                print("Error: Couldn't decode data into discover response")
+            guard let infoResponse = try? JSONDecoder().decode(InfoResponse.self, from: data) else {
+                print("Error: Couldn't decode data into info response")
                 return
             }
             
-            self.objects.append(contentsOf: discoverResponse.results)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            if infoResponse.headBlockNum != self.head {
+                self.head = infoResponse.headBlockNum
+                if self.blocks.count > 0 {
+                    var peek: Int = self.head
+                    for i in MasterViewController.TOTAL_BLOCKS-1...0 {
+                        self.blocks[i] = peek
+                        peek -= 1
+                    }
+                    self.tail = peek + 1
+                } else {
+                    for i in MasterViewController.TOTAL_BLOCKS-1...0 {
+                        self.blocks.append(infoResponse.headBlockNum - i)
+                    }
+                    self.tail = self.head - MasterViewController.TOTAL_BLOCKS + 1
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
             
             }.resume()

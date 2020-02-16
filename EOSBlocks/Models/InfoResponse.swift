@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct BlockResponse: Codable {
-    let results: [Block]
+struct InfoResponse: Codable {
+    let headBlockNum: Int
     
     enum CodingKeys: String, CodingKey {
-        case results = "results"
+        case headBlockNum = "head_block_num"
     }
 }

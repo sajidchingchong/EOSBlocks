@@ -9,21 +9,25 @@
 import UIKit
 
 class DetailViewController: UIViewController, AlertDisplayer {
+    
+    static var blockCache = [Int: Block?]()
 
-    let blockUrl = "https://api.eosnewyork.io/v1"
+    let blockUrl = "https://api.eosnewyork.io/v1/get_block"
     
     @IBOutlet weak var producer: UILabel!
     @IBOutlet weak var producerSignature: UILabel!
     @IBOutlet weak var transactionCount: UILabel!
+    @IBOutlet weak var rawJson: UITextView!
     
-    var detailItem : BlockDetail?
+    var detailItem : Block?
     
     func configureView() {
         // Update the user interface for the detail item.
         if let detail = detailItem {
-            self.producer.text = item!.producer
-            self.producerSignature.text = item!.producerSignature
+            self.producer.text = detail.producer
+            self.producerSignature.text = detail.producerSignature
             self.transactionCount.text = String(detail.transactionCount())
+            self.rawJson.text = detail.rawJson
         }
     }
     
@@ -32,29 +36,43 @@ class DetailViewController: UIViewController, AlertDisplayer {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    var item: Block? {
+    @IBAction func toggleJson(_ sender: Any) {
+        self.rawJson.isHidden = !self.rawJson.isHidden
+    }
+    
+    var item: Int? {
         didSet {
-            URLSession(configuration: URLSessionConfiguration.default).dataTask(with: URL(string: String(format: blockUrl, arguments: [item!.id]))!) { data, response, error in
-                guard let data = data else {
-                    print("Error: No block data!")
-                    self.displayAlert(with: "Alas!" , message: "No Block Data is Found!", actions: [UIAlertAction(title: "OK", style: .default)])
-                    return
-                }
-                
-                print("Block Response: " + String(decoding: data, as: UTF8.self))
-                
-                guard let blockDetail = try? JSONDecoder().decode(BlockDetail.self, from: data) else {
-                    print("Error: Couldn't decode data into block detail")
-                    return
-                }
-                
-                self.detailItem = blockDetail
-                
+            if let block: Block = DetailViewController.blockCache[item!]! {
+                self.detailItem = block
                 DispatchQueue.main.async {
                     self.configureView()
                 }
+            } else {
+                URLSession(configuration: URLSessionConfiguration.default).dataTask(with: URL(string: blockUrl)!) { data, response, error in
+                    guard let data = data else {
+                        print("Error: No block data!")
+                        self.displayAlert(with: "Alas!" , message: "No Block Data is Found!", actions: [UIAlertAction(title: "OK", style: .default)])
+                        return
+                    }
+                
+                    let blockResponse: String = String(decoding: data, as: UTF8.self)
+                    print("Block Response: " + blockResponse)
+                
+                    guard let block = try? JSONDecoder().decode(Block.self, from: data) else {
+                        print("Error: Couldn't decode data into block")
+                        return
+                    }
+                
+                    self.detailItem = block
+                    self.detailItem?.rawJson = blockResponse
+                    DetailViewController.blockCache[self.item!] = self.detailItem
+                
+                    DispatchQueue.main.async {
+                        self.configureView()
+                    }
                 
                 }.resume()
+            }
         }
     }
 

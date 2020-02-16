@@ -10,8 +10,7 @@ import UIKit
 
 class BlockTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var producer: UILabel!
-    @IBOutlet weak var producerSignature: UILabel!
+    @IBOutlet weak var blockNum: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,9 +23,8 @@ class BlockTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureCell(with block: Block){
-        self.producer.text = block.producer
-        self.producerSignature.text = block.producerSignature
+    func configureCell(with block: Int){
+        self.blockNum.text = "Block # \(block)"
     }
     
 }

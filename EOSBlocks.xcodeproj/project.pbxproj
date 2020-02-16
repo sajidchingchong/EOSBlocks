@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D87021A823EFB44400E4C78F /* BlockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A423EFB44400E4C78F /* BlockResponse.swift */; };
-		D87021A923EFB44400E4C78F /* BlockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A423EFB44400E4C78F /* BlockResponse.swift */; };
+		D87021A823EFB44400E4C78F /* InfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A423EFB44400E4C78F /* InfoResponse.swift */; };
+		D87021A923EFB44400E4C78F /* InfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A423EFB44400E4C78F /* InfoResponse.swift */; };
 		D87021AA23EFB44400E4C78F /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A523EFB44400E4C78F /* Block.swift */; };
 		D87021AB23EFB44400E4C78F /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A523EFB44400E4C78F /* Block.swift */; };
 		D87021AC23EFB44400E4C78F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A623EFB44400E4C78F /* Transaction.swift */; };
 		D87021AD23EFB44400E4C78F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A623EFB44400E4C78F /* Transaction.swift */; };
-		D87021AE23EFB44400E4C78F /* BlockDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A723EFB44400E4C78F /* BlockDetail.swift */; };
-		D87021AF23EFB44400E4C78F /* BlockDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021A723EFB44400E4C78F /* BlockDetail.swift */; };
 		D87021B523EFB6FB00E4C78F /* BlockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87021B123EFB6FA00E4C78F /* BlockTableViewCell.xib */; };
 		D87021B623EFB6FB00E4C78F /* BlockTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87021B123EFB6FA00E4C78F /* BlockTableViewCell.xib */; };
 		D87021B723EFB6FB00E4C78F /* LoadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87021B223EFB6FA00E4C78F /* LoadingTableViewCell.xib */; };
@@ -45,10 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D87021A423EFB44400E4C78F /* BlockResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockResponse.swift; sourceTree = "<group>"; };
+		D87021A423EFB44400E4C78F /* InfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoResponse.swift; sourceTree = "<group>"; };
 		D87021A523EFB44400E4C78F /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		D87021A623EFB44400E4C78F /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		D87021A723EFB44400E4C78F /* BlockDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockDetail.swift; sourceTree = "<group>"; };
 		D87021B123EFB6FA00E4C78F /* BlockTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BlockTableViewCell.xib; sourceTree = "<group>"; };
 		D87021B223EFB6FA00E4C78F /* LoadingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingTableViewCell.xib; sourceTree = "<group>"; };
 		D87021B323EFB6FA00E4C78F /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
@@ -89,8 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				D87021A523EFB44400E4C78F /* Block.swift */,
-				D87021A723EFB44400E4C78F /* BlockDetail.swift */,
-				D87021A423EFB44400E4C78F /* BlockResponse.swift */,
+				D87021A423EFB44400E4C78F /* InfoResponse.swift */,
 				D87021A623EFB44400E4C78F /* Transaction.swift */,
 			);
 			path = Models;
@@ -258,11 +254,10 @@
 			files = (
 				D87021BE23EFB86800E4C78F /* BlockTableViewCell.swift in Sources */,
 				D8A38F5323EECA2900A9B8CC /* DetailViewController.swift in Sources */,
-				D87021AE23EFB44400E4C78F /* BlockDetail.swift in Sources */,
 				D8A38F5123EECA2900A9B8CC /* MasterViewController.swift in Sources */,
 				D8A38F4F23EECA2900A9B8CC /* AppDelegate.swift in Sources */,
 				D87021AC23EFB44400E4C78F /* Transaction.swift in Sources */,
-				D87021A823EFB44400E4C78F /* BlockResponse.swift in Sources */,
+				D87021A823EFB44400E4C78F /* InfoResponse.swift in Sources */,
 				D87021B923EFB6FB00E4C78F /* LoadingTableViewCell.swift in Sources */,
 				D87021C123EFBB2900E4C78F /* AlertDisplayer.swift in Sources */,
 				D87021AA23EFB44400E4C78F /* Block.swift in Sources */,
@@ -274,11 +269,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8A38F6623EECA5100A9B8CC /* EOSBlocksTests.swift in Sources */,
-				D87021A923EFB44400E4C78F /* BlockResponse.swift in Sources */,
+				D87021A923EFB44400E4C78F /* InfoResponse.swift in Sources */,
 				D87021BF23EFB86800E4C78F /* BlockTableViewCell.swift in Sources */,
 				D87021BA23EFB6FB00E4C78F /* LoadingTableViewCell.swift in Sources */,
 				D87021C223EFBB2900E4C78F /* AlertDisplayer.swift in Sources */,
-				D87021AF23EFB44400E4C78F /* BlockDetail.swift in Sources */,
 				D87021AB23EFB44400E4C78F /* Block.swift in Sources */,
 				D87021AD23EFB44400E4C78F /* Transaction.swift in Sources */,
 			);
